@@ -24,7 +24,7 @@ export const CreateGruop = () => {
 
    return (
       <CenteredOverlayForm
-         title="まず、ダッチペイするグループの名前を決めてみましょう？"
+         title="まず、ダッチペイするグループの名前を決めてみましょう。"
          validated={validated}
          handleSubmit={handleSubmit}
       >
