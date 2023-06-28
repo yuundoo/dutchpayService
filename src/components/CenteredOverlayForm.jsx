@@ -1,19 +1,39 @@
-import { Container } from 'react-bootstrap';
+import { Container, Row, Form } from 'react-bootstrap';
 import styled from 'styled-components';
 import { OverlayWrapper } from './shared/OverlayWrapper';
+import { StyledRow, StyledTitle, StyledSubmitButton } from './CreateGroup';
 
-export const CenteredOverlayForm = ({ children }) => {
+export const CenteredOverlayForm = ({ children, title, validated, handleSubmit }) => {
    return (
       <CentralizedContainer>
-         <StyledHeader>Dutch Pay</StyledHeader>
-         <OverlayWrapper>{children}</OverlayWrapper>
+         <StyledLogo>Dutch Pay</StyledLogo>
+         <OverlayWrapper>
+            <Container>
+               <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                  <StyledRow>
+                     <Row className="align-items-center">
+                        <StyledTitle>{title}</StyledTitle>
+                     </Row>
+                     <Row className="align-items-center">{children}</Row>
+                     <Row className="align-items-center">
+                        <Container className="text-center">
+                           <StyledSubmitButton>保存</StyledSubmitButton>
+                        </Container>
+                     </Row>
+                  </StyledRow>
+               </Form>
+            </Container>
+         </OverlayWrapper>
       </CentralizedContainer>
    );
 };
 
-const StyledHeader = styled.h1`
+const StyledLogo = styled.h1`
    font-weight: 200;
    letter-spacing: 10px;
+   color: slateblue;
+   text-align: center;
+   margin-bottom: 0.8em;
 `;
 
 const CentralizedContainer = styled(Container)`
