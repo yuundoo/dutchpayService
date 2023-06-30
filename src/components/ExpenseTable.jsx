@@ -49,6 +49,7 @@ const StyledThead = styled.thead`
 `;
 
 const StyledBody = styled.tbody`
+   text-align: center;
    td {
       font-weight: 400;
       font-size: 24px;

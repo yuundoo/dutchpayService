@@ -4,7 +4,7 @@ import { SettlementSummary } from './SettlementSummary';
 import { ExpenseTable } from './ExpenseTable';
 import styled from 'styled-components';
 import { useRecoilValue } from 'recoil';
-import { gruopNameState } from '../state/groupName';
+import { groupNameState } from '../state/groupName';
 import { ServiceLogo } from './shared/ServiceLogo';
 export const ExpenseMain = () => {
    return (
@@ -23,20 +23,22 @@ export const ExpenseMain = () => {
 
 const Leftpane = () => (
    <Container>
-      <Row>
-         <ServiceLogo />
-      </Row>
-      <Row>
-         <AddExpenseForm />
-      </Row>
-      <Row>
-         <SettlementSummary />
-      </Row>
+      <StyledRow>
+         <Row>
+            <ServiceLogo />
+         </Row>
+         <Row>
+            <AddExpenseForm />
+         </Row>
+         <Row>
+            <SettlementSummary />
+         </Row>
+      </StyledRow>
    </Container>
 );
 
 const Rightpane = () => {
-   const groupName = useRecoilValue(gruopNameState);
+   const groupName = useRecoilValue(groupNameState);
 
    return (
       <StyledContainer>
@@ -60,4 +62,10 @@ const StyledGroupName = styled.h2`
    text-align: center;
    font-size: 40px;
    line-height: 40px;
+`;
+
+const StyledRow = styled(Row)`
+   gap: 5vh;
+   padding-top: 100px;
+   justify-content: center;
 `;

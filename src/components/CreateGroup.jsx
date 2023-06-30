@@ -2,19 +2,21 @@ import { CenteredOverlayForm } from './CenteredOverlayForm';
 import { Row, Button } from 'react-bootstrap';
 import { Form } from 'react-bootstrap';
 import { useSetRecoilState } from 'recoil';
-import { gruopNameState } from '../state/groupName';
+import { groupNameState } from '../state/groupName';
 import { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 export const CreateGruop = () => {
-   const setGruopName = useSetRecoilState(gruopNameState);
+   const setGruopName = useSetRecoilState(groupNameState);
    const [validateGroupName, setValidGroupName] = useState(false);
    const [validated, setValidated] = useState(false);
-
+   const navigate = useNavigate();
    const handleSubmit = event => {
       event.preventDefault();
       const form = event.currentTarget;
-      if (form.checkValidity() === false) {
+      if (form.checkValidity()) {
          setValidGroupName(true);
+         navigate('/members');
       } else {
          event.stopPropagation();
          setValidGroupName(false);

@@ -1,9 +1,11 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { CreateGruop } from './components/CreateGroup';
-import { AddMemebers } from './components/AddMembers';
+import { AddMembers } from './components/AddMembers';
 import { ExpenseMain } from './components/ExpenseMain';
 import { RecoilRoot } from 'recoil';
+import { ROUTES } from './routes';
+import { Navigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
@@ -11,9 +13,10 @@ const App = () => {
       <BrowserRouter>
          <RecoilRoot>
             <Routes>
-               <Route path="/" element={<CreateGruop />} />
-               <Route path="/members" element={<AddMemebers />} />
-               <Route path="/expense" element={<ExpenseMain />} />
+               <Route path="/" element={<Navigate to={ROUTES.CREATE_GROUP} />} />
+               <Route path={ROUTES.CREATE_GROUP} element={<CreateGruop />} />
+               <Route path={ROUTES.ADD_MEMBERS} element={<AddMembers />} />
+               <Route path={ROUTES.EXPENSE_MAIN} element={<ExpenseMain />} />
             </Routes>
          </RecoilRoot>
       </BrowserRouter>

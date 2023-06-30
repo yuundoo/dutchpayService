@@ -10,7 +10,7 @@ export const AddExpenseForm = () => {
    const today = new Date();
    const [date, setDate] = useState([today.getFullYear(), today.getMonth() + 1, today.getDate()].join('-'));
    const [desc, setDesc] = useState('');
-   const [amount, setAmount] = useState(0);
+   const [amount, setAmount] = useState('0');
    const [payer, setPayer] = useState(null);
    const [isDescValid, setIsDescValid] = useState(false);
    const [isPayerValid, setIsPayerValid] = useState(false);
@@ -34,14 +34,10 @@ export const AddExpenseForm = () => {
          const newExpense = {
             date,
             desc,
-            amount,
+            amount: Number(amount),
             payer,
          };
          setExpense(expense => [...expense, newExpense]);
-         setDate(`${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日`);
-         setDesc('');
-         setAmount(0);
-         setPayer(null);
       }
       setValidated(true);
    };
@@ -172,11 +168,11 @@ const StyledWrapper = styled.div`
    }
 `;
 
-const StyledTitle = styled.h3`
+export const StyledTitle = styled.h3`
    color: #fffbfb;
    text-align: center;
    font-weight: 700;
-   font-size: 40px;
+   font-size: 30px;
    line-height: 48px;
    letter-spacing: 0.25px;
    margin-bottom: 15px;
