@@ -28,7 +28,7 @@ export const ExpenseTable = () => {
                      <th>{date}</th>
                      <th>{desc}</th>
                      <th>{payer}</th>
-                     <th>{formatAmount(amount)}</th>
+                     <th>{formatAmount(amount)}円</th>
                   </tr>
                ))}
             </StyledBody>
