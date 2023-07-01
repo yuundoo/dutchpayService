@@ -60,9 +60,14 @@ export const StyledSubmitButton = styled(Button).attrs({
 `;
 
 export const StyledRow = styled(Row)`
-   height: 60vh;
+   min-height: 60vh;
    justify-content: center;
    align-items: center;
+
+   @media (max-width: 768px) {
+      height: auto;
+      padding: 20px;
+   }
 `;
 
 export const StyledTitle = styled.h2`
@@ -70,4 +75,8 @@ export const StyledTitle = styled.h2`
    line-height: 35px;
    overflow-wrap: break-word;
    word-break: keep-all;
+
+   @media (max-width: 768px) {
+      font-size: 18px;
+   }
 `;
