@@ -3,7 +3,10 @@ import { expenseState } from '../state/expenses';
 import { groupMemberState } from '../state/groupMembers';
 import { StyledTitle } from './AddExpenseForm';
 import styled from 'styled-components';
-
+import { useRef } from 'react';
+import { toPng } from 'html-to-image';
+import { Download } from 'react-bootstrap-icons';
+import { Button } from 'react-bootstrap';
 export const calculateMinimumTransaction = (expenses, members, amountPerPerson) => {
    const minTransactions = [];
    if (!expenses || !members || !amountPerPerson || amountPerPerson === 0) {
@@ -68,6 +71,29 @@ export const SettlementSummary = () => {
    const groupMembersCount = members.length;
    const splitAmount = totalExpenseAmount / groupMembersCount;
    const minimumTransaction = calculateMinimumTransaction(expenses, members, splitAmount);
+
+   const wrapperElement = useRef(null);
+
+   const exportToImage = () => {
+      if (wrapperElement.current === null) {
+         return;
+      }
+
+      toPng(wrapperElement.current, {
+         filter: node => node.tagName !== 'BUTTON',
+      })
+         .then(dataURL => {
+            const link = document.createElement('a');
+            link.download = 'settlement-summary.png';
+            link.href = dataURL;
+
+            link.click();
+         })
+         .catch(err => {
+            console.error(err);
+         });
+   };
+
    return (
       <StyledWrapper>
          <StyledTitle>2. 정산은 이렇게!</StyledTitle>
@@ -89,6 +115,9 @@ export const SettlementSummary = () => {
                      </li>
                   ))}
                </StyledUl>
+               <StyledButton data-testid="btn-download" onClick={exportToImage}>
+                  <Download />
+               </StyledButton>
             </div>
          )}
       </StyledWrapper>
@@ -124,4 +153,19 @@ const StyledUl = styled.ul`
 
 const StyledSummary = styled.div`
    margin-top: 31px;
+`;
+
+const StyledButton = styled(Button)`
+   background: none;
+   border: none;
+   font-size: 25px;
+   position: absolute;
+   bottom: 15px;
+   right: 15px;
+
+   &:hover,
+   &:active {
+      background: none;
+      color: #683ba1;
+   }
 `;
