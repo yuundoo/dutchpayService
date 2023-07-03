@@ -17,26 +17,25 @@ export const AddMembers = () => {
    const [validated, setValidated] = useState(false);
    const navigate = useNavigate();
 
-   const saveGroupsMember = () => {
-      API.put('groupsApi', `/groups/${guid}/members`, {
-         body: {
-            members: groupMembers,
-         },
-      })
-         .then(_response => {
-            navigate(ROUTES.EXPENSE_MAIN);
-         })
-         .catch(({ response }) => {
-            alert(response);
+   const saveGroupsMember = async () => {
+      try {
+         await API.put('groupsApi', `/groups/${guid}/members`, {
+            body: {
+               members: groupMembers,
+            },
          });
+         navigate(ROUTES.EXPENSE_MAIN);
+      } catch (error) {
+         alert(error.response);
+      }
    };
 
-   const handleSubmit = event => {
+   const handleSubmit = async event => {
       event.preventDefault();
       setValidated(true);
       if (groupMembers.length > 0) {
          navigate(ROUTES.EXPENSE_MAIN);
-         saveGroupsMember();
+         await saveGroupsMember();
       }
    };
 

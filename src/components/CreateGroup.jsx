@@ -23,7 +23,7 @@ export const CreateGroup = () => {
       })
          .then(({ data }) => {
             const { guid } = data;
-            setGroupId(guid);
+            setGroupId(guid); // groupIdState 업데이트
             navigate(ROUTE_UTILS.ADD_MEMBERS(guid));
             console.log(groupName);
          })
