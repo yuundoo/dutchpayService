@@ -4,13 +4,18 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { groupMemberState } from '../state/groupMembers';
 import { expenseState } from '../state/expenses';
 import styled from 'styled-components';
+import { API } from 'aws-amplify';
+import { groupIdState } from '../state/groupId';
 export const AddExpenseForm = () => {
+   const guid = useRecoilValue(groupIdState);
    const members = useRecoilValue(groupMemberState);
    const [validated, setValidated] = useState(false);
    const today = new Date();
-   const [date, setDate] = useState([today.getFullYear(), today.getMonth() + 1, today.getDate()].join('-'));
+   const [date, setDate] = useState(
+      [today.getFullYear(), today.getMonth() + 1, `0${today.getDate()}`.slice(-2)].join('-'),
+   );
    const [desc, setDesc] = useState('');
-   const [amount, setAmount] = useState('0');
+   const [amount, setAmount] = useState(0);
    const [payer, setPayer] = useState(null);
    const [isDescValid, setIsDescValid] = useState(false);
    const [isPayerValid, setIsPayerValid] = useState(false);
@@ -21,15 +26,31 @@ export const AddExpenseForm = () => {
    const checkFormValidity = () => {
       const descValid = desc.length > 0;
       const payerValid = payer !== null;
-      const amountValid = amount > 0;
+      const amountValid = !!amount && amount > 0;
       setIsDescValid(descValid);
       setIsAmountValid(amountValid);
       setIsPayerValid(payerValid);
       return descValid && payerValid && amountValid;
    };
 
+   const saveExpense = expense => {
+      API.put('groupsApi', `/groups/${guid}/expenses`, {
+         body: {
+            expense,
+         },
+      })
+         .then(_response => {
+            setExpense(expenses => [...expenses, expense]);
+         })
+         .catch(_error => {
+            alert('비용 추가에 실패 했습니다. 다시 시도해 주세요.');
+         });
+   };
+
    const handleSubmit = event => {
       event.preventDefault();
+      event.stopPropagation();
+
       if (checkFormValidity()) {
          const newExpense = {
             date,
@@ -37,7 +58,7 @@ export const AddExpenseForm = () => {
             amount: Number(amount),
             payer,
          };
-         setExpense(expense => [...expense, newExpense]);
+         saveExpense(newExpense);
       }
       setValidated(true);
    };

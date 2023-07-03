@@ -1,29 +1,51 @@
 import { CenteredOverlayForm } from './CenteredOverlayForm';
-import { Row, Button } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
-import { useSetRecoilState } from 'recoil';
+import { Row, Button, Form } from 'react-bootstrap';
+import { useSetRecoilState, useRecoilState } from 'recoil';
 import { groupNameState } from '../state/groupName';
+import { groupIdState } from '../state/groupId';
 import { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-export const CreateGruop = () => {
-   const setGruopName = useSetRecoilState(groupNameState);
+import { API } from 'aws-amplify';
+import { ROUTE_UTILS } from '../routes';
+export const CreateGroup = () => {
+   const [groupName, setGroupName] = useRecoilState(groupNameState);
+   const setGroupId = useSetRecoilState(groupIdState);
    const [validateGroupName, setValidGroupName] = useState(false);
    const [validated, setValidated] = useState(false);
    const navigate = useNavigate();
+
+   const saveGroupName = () => {
+      API.post('groupsApi', '/groups', {
+         body: {
+            groupName,
+         },
+      })
+         .then(({ data }) => {
+            const { guid } = data;
+            setGroupId(guid);
+            navigate(ROUTE_UTILS.ADD_MEMBERS(guid));
+            console.log(groupName);
+         })
+         .catch(error => {
+            console.error(error);
+            alert(error.response.data.error);
+         });
+   };
+
    const handleSubmit = event => {
       event.preventDefault();
+
       const form = event.currentTarget;
       if (form.checkValidity()) {
          setValidGroupName(true);
-         navigate('/members');
+         saveGroupName();
       } else {
          event.stopPropagation();
          setValidGroupName(false);
       }
       setValidated(true);
    };
-
    return (
       <CenteredOverlayForm
          title="まず、ダッチペイするグループの名前を決めてみましょう"
@@ -35,7 +57,7 @@ export const CreateGruop = () => {
                type="text"
                required
                placeholder="2022済州島旅行"
-               onChange={e => setGruopName(e.target.value)}
+               onChange={e => setGroupName(e.target.value)}
             />
             <Form.Control.Feedback type="invalid" data-valid={validateGroupName}>
                グループ名を入力してください。
