@@ -40,7 +40,7 @@ export const AddMembers = () => {
       return window.navigator.userAgent.includes('SAMSUNG');
    };
 
-   const header = `${groupName}그룹에 속한 사람들의 이름을 모두 적어 주세요. `;
+   const header = `${groupName} 그룹에 속한 사람들의 이름을 모두 적어 주세요. `;
 
    return (
       <CenteredOverlayForm title={header} validated={validated} handleSubmit={handleSubmit}>
