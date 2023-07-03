@@ -40,7 +40,7 @@ export const AddMembers = () => {
       return window.navigator.userAgent.includes('SAMSUNG');
    };
 
-   const header = `${groupName}グループに属する人の名前をすべて書いてください `;
+   const header = `${groupName}그룹에 속한 사람들의 이름을 모두 적어 주세요. `;
 
    return (
       <CenteredOverlayForm title={header} validated={validated} handleSubmit={handleSubmit}>
@@ -53,13 +53,13 @@ export const AddMembers = () => {
             <InputTags
                values={groupMembers}
                data-testid="input-member-names"
-               placeholder="名前の間取り"
+               placeholder="이름 간 띄어 쓰기"
                onTags={value => setGroupMembers(value.values)}
             />
          )}
 
          {validated && groupMembers.length === 0 && (
-            <StyledErrorMessage>グループメンバーの名前を入力してください。</StyledErrorMessage>
+            <StyledErrorMessage>그룹 멤버들의 이름을 입력해 주세요.</StyledErrorMessage>
          )}
       </CenteredOverlayForm>
    );

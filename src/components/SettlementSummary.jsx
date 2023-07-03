@@ -96,23 +96,30 @@ export const SettlementSummary = () => {
 };
 
 const StyledWrapper = styled.div`
-   padding: 50px;
+   padding: 1.5em;
    background-color: #683ba1;
-   color: white;
+   color: #fffbfb;
    box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
    border-radius: 15px;
    text-align: center;
-   font-size: 22px;
+   font-size: 20px;
+   position: relative;
+
+   @media screen and (max-width: 600px) {
+      font-size: 4vw;
+      line-height: 6vw;
+   }
 `;
 
 const StyledUl = styled.ul`
-   margin-top: 31px;
-   font-weight: 400;
-   line-height: 48px;
+   margin-top: 1em;
+   font-weight: 600;
+   line-height: 200%;
+   text-align: left;
 
-   list-style: disclosure-closed;
+   list-style-type: disclosure-closed;
    li::marker {
-      animation: blinker 1.5s infinite;
+      animation: blinker 1.5s linear infinite;
    }
 
    @keyframes blinker {
@@ -123,5 +130,5 @@ const StyledUl = styled.ul`
 `;
 
 const StyledSummary = styled.div`
-   margin-top: 31px;
+   margin-top: 1em;
 `;

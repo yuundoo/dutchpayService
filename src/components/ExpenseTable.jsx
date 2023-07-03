@@ -13,7 +13,7 @@ export const ExpenseTable = () => {
 
    return (
       <OverlayWrapper minHeight={'73vh'}>
-         <Table data-testid="expenseList" borderless hover responsive>
+         <StyledTable data-testid="expenseList" borderless hover responsive>
             <StyledThead>
                <tr>
                   <th>날짜</th>
@@ -28,31 +28,51 @@ export const ExpenseTable = () => {
                      <th>{date}</th>
                      <th>{desc}</th>
                      <th>{payer}</th>
-                     <th>{formatAmount(amount)}円</th>
+                     <th>{formatAmount(amount)}원</th>
                   </tr>
                ))}
             </StyledBody>
-         </Table>
+         </StyledTable>
       </OverlayWrapper>
    );
 };
+
+const StyledTable = styled(Table)`
+   min-width: 450px;
+   @media screen and (max-width: 600px) {
+      min-width: 300px;
+   }
+`;
 
 const StyledThead = styled.thead`
    color: #6b3da6;
    text-align: center;
    font-weight: 700;
-   font-size: 24px;
-   line-height: 29px;
+   font-size: 20px;
+   line-height: 25px;
    th {
-      padding: 20px 8px;
+      padding: 15px 8px;
+      min-width: 60px;
+   }
+   @media screen and (max-width: 600px) {
+      font-size: 4vw;
+      line-height: 10px;
+      th {
+         padding: 10px 4px;
+      }
    }
 `;
 
 const StyledBody = styled.tbody`
-   text-align: center;
    td {
       font-weight: 400;
-      font-size: 24px;
-      line-height: 59px;
+      font-size: 20px;
+      line-height: 50px;
+      text-align: center;
+
+      @media screen and (max-width: 600px) {
+         font-size: 4vw;
+         line-height: 20px;
+      }
    }
 `;

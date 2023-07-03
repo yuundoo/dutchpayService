@@ -41,31 +41,43 @@ const Rightpane = () => {
    const groupName = useRecoilValue(groupNameState);
 
    return (
-      <StyledContainer>
+      <StyledRightPaneWrapper>
          <Row>
             <StyledGroupName>{groupName || '그룹 이름'}</StyledGroupName>
          </Row>
          <Row>
             <ExpenseTable />
          </Row>
-      </StyledContainer>
+      </StyledRightPaneWrapper>
    );
 };
 
-const StyledContainer = styled(Container)`
-   padding: 100px 31px 100px 31px;
+const StyledRightPaneWrapper = styled(Container)`
+   padding: 5vh 2vw 2vh 2vw;
+
+   @media screen and (max-width: 600px) {
+      padding: 50px 25px;
+   }
 `;
 
 const StyledGroupName = styled.h2`
-   margin-bottom: 80px;
+   margin-bottom: 6vh;
    font-weight: 700;
-   text-align: center;
    font-size: 40px;
    line-height: 40px;
+   text-align: center;
+   @media screen and (max-width: 600px) {
+      font-size: 9vw;
+      margin-bottom: 30px;
+   }
 `;
 
 const StyledRow = styled(Row)`
-   gap: 5vh;
-   padding-top: 100px;
+   gap: 3vh;
+   padding-top: 4vh;
    justify-content: center;
+
+   @media screen and (max-width: 600px) {
+      padding-top: 30px;
+   }
 `;

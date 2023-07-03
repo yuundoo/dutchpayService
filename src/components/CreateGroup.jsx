@@ -26,7 +26,7 @@ export const CreateGruop = () => {
 
    return (
       <CenteredOverlayForm
-         title="まず、ダッチペイするグループの名前を決めてみましょう"
+         title="먼저, 더치 페이 할 그룹의 이름을 정해볼까요?"
          validated={validated}
          handleSubmit={handleSubmit}
       >
@@ -34,11 +34,11 @@ export const CreateGruop = () => {
             <Form.Control
                type="text"
                required
-               placeholder="2022済州島旅行"
+               placeholder="2023 제주도 여행"
                onChange={e => setGruopName(e.target.value)}
             />
             <Form.Control.Feedback type="invalid" data-valid={validateGroupName}>
-               グループ名を入力してください。
+               그룹 이름을 입력해 주세요.
             </Form.Control.Feedback>
          </Form.Group>
       </CenteredOverlayForm>

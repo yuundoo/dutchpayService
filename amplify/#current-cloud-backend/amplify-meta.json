@@ -1,0 +1,105 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-amplifyc1b4f399dd414-staging-01024-authRole",
+      "UnauthRoleArn": "arn:aws:iam::460523860394:role/amplify-amplifyc1b4f399dd414-staging-01024-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::460523860394:role/amplify-amplifyc1b4f399dd414-staging-01024-authRole",
+      "Region": "ap-northeast-2",
+      "DeploymentBucketName": "amplify-amplifyc1b4f399dd414-staging-01024-deployment",
+      "UnauthRoleName": "amplify-amplifyc1b4f399dd414-staging-01024-unauthRole",
+      "StackName": "amplify-amplifyc1b4f399dd414-staging-01024",
+      "StackId": "arn:aws:cloudformation:ap-northeast-2:460523860394:stack/amplify-amplifyc1b4f399dd414-staging-01024/d7e41e10-186c-11ee-a269-0a16084898ec",
+      "AmplifyAppId": "d360dkya0og838"
+    }
+  },
+  "storage": {
+    "groups": {
+      "service": "DynamoDB",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyc1b4f399dd414-staging-01024-deployment/amplify-cfn-templates/storage/groups-cloudformation-template.json",
+        "logicalId": "storagegroups"
+      },
+      "lastPushTimeStamp": "2023-07-03T04:24:07.980Z",
+      "output": {
+        "PartitionKeyName": "guid",
+        "Region": "ap-northeast-2",
+        "Arn": "arn:aws:dynamodb:ap-northeast-2:460523860394:table/groups-staging",
+        "StreamArn": "arn:aws:dynamodb:ap-northeast-2:460523860394:table/groups-staging/stream/2023-07-02T02:05:13.405",
+        "PartitionKeyType": "S",
+        "Name": "groups-staging"
+      },
+      "lastPushDirHash": "AadwkuQ78cIg3Z/RugNeqrEoSeM="
+    }
+  },
+  "function": {
+    "groupsLambda": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda",
+      "dependsOn": [
+        {
+          "category": "storage",
+          "resourceName": "groups",
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "attributeEnvMap": {
+            "Name": "TABLE_NAME",
+            "Arn": "TABLE_ARN"
+          }
+        }
+      ],
+      "lastBuildTimeStamp": "2023-07-03T04:23:04.014Z",
+      "lastBuildType": "PROD",
+      "lastPackageTimeStamp": "2023-07-03T04:23:04.524Z",
+      "distZipFilename": "groupsLambda-7438786a4453364a6352-build.zip",
+      "s3Bucket": {
+        "deploymentBucketName": "amplify-amplifyc1b4f399dd414-staging-01024-deployment",
+        "s3Key": "amplify-builds/groupsLambda-7438786a4453364a6352-build.zip"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyc1b4f399dd414-staging-01024-deployment/amplify-cfn-templates/function/groupsLambda-cloudformation-template.json",
+        "logicalId": "functiongroupsLambda"
+      },
+      "lastPushTimeStamp": "2023-07-03T04:24:08.174Z",
+      "output": {
+        "LambdaExecutionRoleArn": "arn:aws:iam::460523860394:role/dutchpayserviceLambdaRole6e15ac15-staging",
+        "Region": "ap-northeast-2",
+        "Arn": "arn:aws:lambda:ap-northeast-2:460523860394:function:groupsLambda-staging",
+        "Name": "groupsLambda-staging",
+        "LambdaExecutionRole": "dutchpayserviceLambdaRole6e15ac15-staging"
+      },
+      "lastPushDirHash": "WFBJwK+a4dxqSQgHIK1UPhLflnI=",
+      "lastDevBuildTimeStamp": "2023-07-02T10:49:39.912Z"
+    }
+  },
+  "api": {
+    "groupsApi": {
+      "service": "API Gateway",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [
+        {
+          "category": "function",
+          "resourceName": "groupsLambda",
+          "attributes": [
+            "Name",
+            "Arn"
+          ]
+        }
+      ],
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplifyc1b4f399dd414-staging-01024-deployment/amplify-cfn-templates/api/groupsApi-cloudformation-template.json",
+        "logicalId": "apigroupsApi"
+      },
+      "lastPushTimeStamp": "2023-07-03T04:24:08.006Z",
+      "output": {
+        "ApiName": "groupsApi",
+        "RootUrl": "https://z6umbinfb5.execute-api.ap-northeast-2.amazonaws.com/staging",
+        "ApiId": "z6umbinfb5"
+      },
+      "lastPushDirHash": "LoFCk6dPI1/AerAlDUQmbUHdW+0="
+    }
+  }
+}

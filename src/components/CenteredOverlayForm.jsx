@@ -17,7 +17,7 @@ export const CenteredOverlayForm = ({ children, title, validated, handleSubmit }
                      <Row className="align-items-center">{children}</Row>
                      <Row className="align-items-center">
                         <Container className="text-center">
-                           <StyledSubmitButton>保存</StyledSubmitButton>
+                           <StyledSubmitButton>저장</StyledSubmitButton>
                         </Container>
                      </Row>
                   </StyledRow>

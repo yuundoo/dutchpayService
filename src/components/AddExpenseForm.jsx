@@ -44,7 +44,7 @@ export const AddExpenseForm = () => {
    return (
       <StyledWrapper>
          <Form noValidate onSubmit={handleSubmit}>
-            <StyledTitle>1.費用を追加する</StyledTitle>
+            <StyledTitle>1.비용 추가</StyledTitle>
             <Row>
                <Col xs={12}>
                   <Form.Group>
@@ -64,12 +64,12 @@ export const AddExpenseForm = () => {
                         type="text"
                         isValid={isDescValid}
                         isInvalid={!isDescValid && validated}
-                        placeholder="費用の説明を入力してください"
+                        placeholder="비용에 대한 설명을 입력해 주세요"
                         value={desc}
                         onChange={e => setDesc(e.target.value)}
                      />
                      <Form.Control.Feedback type="invalid" data-valid={isDescValid}>
-                        費用の内容を入力してください
+                        비용 내용을 입력해 주셔야 합니다.
                      </Form.Control.Feedback>
                   </Form.Group>
                </Col>
@@ -86,12 +86,12 @@ export const AddExpenseForm = () => {
                         onChange={e => setAmount(e.target.value)}
                      />
                      <Form.Control.Feedback type="invalid" data-valid={isAmountValid}>
-                        1円以上の金額を入力してください。
+                        1원 이상의 금액을 입력해 주셔야 합니다
                      </Form.Control.Feedback>
                   </Form.Group>
                </Col>
                <Col xs={12} lg={6}>
-                  <Form.Group>
+                  <StyledFormGroup>
                      <Form.Select
                         required
                         isValid={isPayerValid}
@@ -100,7 +100,7 @@ export const AddExpenseForm = () => {
                         onChange={e => setPayer(e.target.value)}
                      >
                         <option value="" disabled>
-                           選択してください
+                           선택해주세요
                         </option>
                         {members.map(member => (
                            <option key={member} value={member}>
@@ -109,14 +109,14 @@ export const AddExpenseForm = () => {
                         ))}
                      </Form.Select>
                      <Form.Control.Feedback type="invalid" data-valid={isPayerValid}>
-                        決済者を選択していただく必要があります。
+                        결제자를 선택해 주셔야 합니다.
                      </Form.Control.Feedback>
-                  </Form.Group>
+                  </StyledFormGroup>
                </Col>
             </Row>
             <Row>
                <Col xs={12} className="d-grid gap-2">
-                  <StyledSubmitButton>追加する</StyledSubmitButton>
+                  <StyledSubmitButton>추가하기</StyledSubmitButton>
                </Col>
             </Row>
          </Form>
@@ -127,41 +127,45 @@ export const AddExpenseForm = () => {
 const StyledSubmitButton = styled(Button).attrs({
    type: 'submit',
 })`
-   height: 60px;
-   border-radius: 8px;
+   height: 45px;
    border: 0px;
+   border-radius: 8px;
    background-color: #e2d9f3;
    color: #59359a;
-   padding: 16px 32px;
    margin-top: 10px;
 
    &:hover,
    &:focus {
       background-color: #e2d9f3;
-      filter: brightness(85%);
+      filter: rgba(0, 0, 0, 0.3);
    }
 `;
 
 const StyledWrapper = styled.div`
-   padding: 50px;
+   padding: 40px;
    background-color: #683ba1;
    box-shadow: 3px 0px 4px rgba(0, 0, 0, 0.25);
    border-radius: 15px;
+`;
+
+const StyledFormGroup = styled(Form.Group)`
+   margin-bottom: 15px;
 
    input,
    select {
-      background-color: #59359a;
+      background: #59359a;
       box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.25);
       border-radius: 8px;
-      border: 0px;
+      border: 0;
       color: #f8f9fa;
-      margin-bottom: 15px;
-      height: 45px;
+      height: 40px;
+
       &:focus {
          color: #f8f9fa;
-         background-color: #59359a;
+         background: #59359a;
          filter: brightness(80%);
       }
+
       ::placeholder {
          color: #f8f9fa;
       }
@@ -172,8 +176,12 @@ export const StyledTitle = styled.h3`
    color: #fffbfb;
    text-align: center;
    font-weight: 700;
-   font-size: 30px;
-   line-height: 48px;
+   font-size: 25px;
+   line-height: 30px;
    letter-spacing: 0.25px;
    margin-bottom: 15px;
+   @media screen and (max-width: 600px) {
+      font-size: 5.5vw;
+      line-height: 6vw;
+   }
 `;
